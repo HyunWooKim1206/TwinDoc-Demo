@@ -6,7 +6,7 @@ var reviews = {};
 function setData() {
     $.when(
         // 데이터 불러오기
-        $.getJSON('../json/test.json', function (data) {
+        $.getJSON('../json/reviews.json', function (data) {
             jsnData = data;
         })
     ).then(function (data) {
