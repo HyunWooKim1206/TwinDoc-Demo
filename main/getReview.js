@@ -1,6 +1,5 @@
 let jsnData = {};
 let reviews = {};
-let finalRv = [];
 let similarProds = {};
 
 // 화면 구성
@@ -13,8 +12,8 @@ function setData() {
     ).then(function (data) {
         let prodNum = JSON.parse(localStorage.getItem('prodNum'));
         console.log(prodNum);
-        //content[0]불러와
-        //불러온 애들의 keyphrase를 뽑아
+        //content[0] 뽑기
+        //불러온 애들의 keyphrase를 추출
         let content = data[prodNum].content;
         console.log(content);
         //keyPhrase에 해당하는 rv를 
@@ -38,17 +37,25 @@ $(document).on('click', 'button', function () {
     console.log(bId);
     //리뷰 
     var rv = "";
+    var rvAll = "";
     //유사상품
     var sp = "";
-    $.each(reviews, function (key, review) {
-        if (bId == 'btnReviewAll') {
-            rv += JSON.stringify(review).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\\\/]/g, " ").replaceAll(/[\[\],]/g, "<br>");
-            rv += '<br>';
-        } else {
-            rv = JSON.stringify(reviews[bId]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\[\]\\\/]/g, " ").replaceAll(/,/g, "<br>");
-            sp = JSON.stringify(similarProds[bId]).replaceAll("similarProdNum", "유사제품번호").replaceAll("similarProdName", "유사제품명").replaceAll(/["\\\/]/g, " ").replaceAll(/[\{\}\[\]\,]/g, "<br>");
-        }
-    });
+    if (bId == 'btnReviewAll') {
+        const result = [];
+        Object.entries(reviews)
+            .flatMap(([_, value]) => value)
+            .forEach(data => {
+                const sameData = result.find(resultData => resultData.comment === data.comment)
+                if (!sameData) result.push(data);
+            });
+        console.log(result);
+        rvAll = JSON.stringify(result).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\\\/]/g, " ").replaceAll(/[\[\],]/g, "<br>");;
+    } else {
+        rv = JSON.stringify(reviews[bId]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\[\]\\\/]/g, " ").replaceAll(/,/g, "<br>");
+        sp = JSON.stringify(similarProds[bId]).replaceAll("similarProdNum", "유사제품번호").replaceAll("similarProdName", "유사제품명").replaceAll(/["\\\/]/g, " ").replaceAll(/[\{\}\[\]\,]/g, "<br>");
+    }
+
+    $('#allReview').html(rvAll);
     $('#review').html(rv);
     $('#similar').html(sp);
 });
