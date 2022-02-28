@@ -14,7 +14,7 @@ function getProd() {
             let prodImg = product.prodImg;
             let prodName = product.prodName;
             console.log(prodName, prodNum);
-            //home.html에 추가
+            //home.html에 상품 갯수에 맞게 추가
             let $div = "<div id='" + prodNum + "'><a class='link'><img src='" + prodImg + "'>" + prodName + "</a></div>";
             $("#product-review").append($div);
         });
