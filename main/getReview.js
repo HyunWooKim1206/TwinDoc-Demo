@@ -1,11 +1,13 @@
 let jsnData = {};
 let reviews = {};
+let finalRv = [];
 let similarProds = {};
+
 // 화면 구성
 function setData() {
     $.when(
         // 데이터 불러오기
-        $.getJSON('../json/for_demo_75_85.json', function (data) {
+        $.getJSON('../json/10Prod.json', function (data) {
             jsnData = data;
         })
     ).then(function (data) {
@@ -38,54 +40,19 @@ $(document).on('click', 'button', function () {
     var rv = "";
     //유사상품
     var sp = "";
-    // if (bId == 'btnReviewAll') {
-    //     $.each(reviews, function (keyPhrase, review) {
-    //         rv += JSON.stringify(review);
-    //         rv += '<br>';
-    //     })
-    // } else {
-    //     rv = JSON.stringify(reviews[bId]);
-    //     sp = JSON.stringify(similarProds[bId]);
-    // }
     $.each(reviews, function (key, review) {
         if (bId == 'btnReviewAll') {
-            rv += JSON.stringify(review);
+            rv += JSON.stringify(review).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\\\/]/g, " ").replaceAll(/[\[\],]/g, "<br>");
             rv += '<br>';
-        }else{
-            rv = JSON.stringify(reviews[bId]);
-            sp = JSON.stringify(similarProds[bId]);
+        } else {
+            rv = JSON.stringify(reviews[bId]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\[\]\\\/]/g, " ").replaceAll(/,/g, "<br>");
+            sp = JSON.stringify(similarProds[bId]).replaceAll("similarProdNum", "유사제품번호").replaceAll("similarProdName", "유사제품명").replaceAll(/["\\\/]/g, " ").replaceAll(/[\{\}\[\]\,]/g, "<br>");
         }
     });
-    $('#review').html(rv.replace(/["\{\}\[\]\\\/]/g, ""));
-    $('#similar').html(sp.replace(/["\{\}\[\]\\\/]/g, ""));
+    $('#review').html(rv);
+    $('#similar').html(sp);
 });
 
 $(function () {
     setData();
-    // $('#prodNum').text(data.prodNum);
-    // $('#content').text(data.content[data.btn]);
-    // if(data.content.hasOwnProperty(data.btn)){
-    //     $('#content').text(data.content[data.btn]);
-    // } else {
-    //     var rv = "";
-    //     $.each(data.content, function(k, rev){
-    //         if(k.indexOf('key') == -1){
-    //             if(typeof rev === 'object'){
-    //                 $.each(rev, function(user, rvw){
-    //                     rv += user+' : '+rvw;
-    //                     rv += '<br>';
-    //                 })
-    //             } else {
-    //                 rv += rev;
-    //                 rv += "<br>";
-    //             }
-    //             console.log(rv);
-    //         }
-    //     })
-    //     $('#content').html(rv);
-    // }
-
-    // $('#goBack').on('click', function(){
-    //     history.back();
-    // })
 });
