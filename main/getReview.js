@@ -44,18 +44,18 @@ $(document).on('click', 'button', function () {
     var sp = "";
     //전체리뷰 출력
     if (bId == 'btnReviewAll') {
-        const result = [];
+        const reviewAll = [];
         Object.entries(reviews)
             .flatMap(([_, value]) => value)
             .forEach(data => {
-                const sameData = result.find(resultData => resultData.comment === data.comment)
-                if (!sameData) result.push(data);
+                const sameData = reviewAll.find(resultData => resultData.comment === data.comment)
+                if (!sameData) reviewAll.push(data);
             });
-        console.log(result);
-        rvAll = JSON.stringify(result).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\[\]\\\/]/g, " ").replaceAll(/,/g, "<br>").replaceAll(/\:/g,": ");
+        console.log(reviewAll);
+        rvAll = JSON.stringify(reviewAll).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g,": ");
     } else {
         //KeyPhrase에 해당하는 리뷰
-        rv = JSON.stringify(reviews[bId]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\}\[\]\\\/]/g, " ").replaceAll(/,/g, "<br>").replaceAll(/\:/g,": ");
+        rv = JSON.stringify(reviews[bId]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g,": ");
         sp = JSON.stringify(similarProds[bId]).replaceAll("similarProdNum", "유사제품번호").replaceAll("similarProdName", "유사제품명").replaceAll(/["\\\/]/g, " ").replaceAll(/[\{\}\[\]\,]/g, "<br>").replaceAll(/\:/g,": ");
     }
     //전체 리뷰, 각 리뷰, 유사상품 html에 그리기
