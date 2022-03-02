@@ -11,9 +11,15 @@ function setData() {
             jsnData = data;
         })
     ).then(function (data) {
-        //제품번호 추출
+        //제품번호 가져오기
         let prodNum = JSON.parse(localStorage.getItem('prodNum'));
         console.log(prodNum);
+        //이미지, 제품명 가져오기
+        let prodImg = data[prodNum].prodImg;
+        let prodName = data[prodNum].prodName;
+        console.log(prodImg);
+        let $img = "<img src = '" + prodImg + "'>" + prodName + "</button>"
+        $("#prod").append($img);
         //keyphrase를 추출
         let content = data[prodNum].content;
         console.log(content);
