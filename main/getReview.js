@@ -18,7 +18,6 @@ function setData() {
         //이미지, 제품명 가져오기
         let prodImg = data[prodNum].prodImg;
         let prodName = data[prodNum].prodName;
-        console.log(prodImg);
         let $img = "<img src = '" + prodImg + "'>" + prodName + "</button>"
         $("#prod").append($img);
 
@@ -31,10 +30,13 @@ function setData() {
             //리뷰추출
             reviews[keyPhrase] = review[1];
             console.log(review[1], "리뷰");
-
             //유사상품 추출
-            similarProds[keyPhrase] = review[2];
-            console.log(review[2], "유사상품");
+            // similarProds[keyPhrase] = review[2];
+            let sim = [];
+            $.each(review[2], function (i,prod){
+                sim.push(prod.similarProdName);
+            });
+            similarProds[keyPhrase] = sim;
 
             //버튼 all, keyPhrase해당하는 만큼 버튼만들기
             let $button = "<button id = '" + keyPhrase + "'>" + review[0] + "</button>"
@@ -68,14 +70,13 @@ $(document).on('click', 'button', function () {
     } else {
         //KeyPhrase에 해당하는 리뷰
         rv = JSON.stringify(reviews[bId]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
-        sp = JSON.stringify(similarProds[bId]).replaceAll("similarProdNum", "유사제품번호").replaceAll("similarProdName", "유사제품명").replaceAll(/["\\\/]/g, " ").replaceAll(/[\{\}\[\]\,]/g, "<br>").replaceAll(/\:/g, ": ");
+        sp = JSON.stringify(similarProds[bId]).replaceAll(/[\{\[\]\\\/]/g, " ").replaceAll(/[\,\"]/g, "<br>").replaceAll(/\:/g, ": ");
     }
     //전체 리뷰, 각 리뷰, 유사상품 html에 그리기
     $('#allReview').html(rvAll);
     $('#review').html(rv);
     $('#similar').html(sp);
 });
-
 $(function () {
     setData();
 });
