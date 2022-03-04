@@ -165,3 +165,7 @@ body {
     height: 1px;
     margin-top: -1px;
 }
+
+#showSimilar{
+    display: inline-block;
+}
