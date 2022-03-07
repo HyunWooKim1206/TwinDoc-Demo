@@ -24,7 +24,9 @@ function setData() {
         //keyphrase를 추출
         let content = data[prodNum].content;
         console.log(content);
-
+        //유사상품이미지
+        let sim = [];
+        let simImg = [];
         //각각의 KeyPhrase에 해당하는 리뷰 추출
         $.each(content, function (keyPhrase, review) {
             //리뷰추출
@@ -32,8 +34,6 @@ function setData() {
             console.log(review[1], "리뷰");
             //유사상품 추출
             // similarProds[keyPhrase] = review[2];
-            let sim = [];
-            let simImg = [];
             $.each(review[2], function (i, prod) {
                 sim.push(prod.similarProdName);
                 simImg.push(prod.similarProdImg);
@@ -44,6 +44,15 @@ function setData() {
             let $button = "<button id = '" + keyPhrase + "'>" + review[0] + "</button>";
             $("#reviewAll").append($button);
         });
+
+        $(document).on('click', 'button', function () {
+            let cId = $(this).attr('id');
+            console.log(cId);
+            if(cId != 'btnReviewAll'){
+                let $spImg = "<div id = '"+cId+"'>" + sim + "</div>";
+                $("#test").html($spImg);
+            }
+        })
     });
 };
 
