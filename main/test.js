@@ -79,9 +79,7 @@ function setData() {
                             console.log($img);
                             $('.modal_content').append($img);
                         }
-                        test.push(img);
-                    })
-                    console.log(test,"test");
+                    });
                     $.each(similarProd, function (i, name) {
                         if (btnID == keyPhrase) {
                             let $name = "<div id= '" + btnID + "'>" + name + "'</div>";
