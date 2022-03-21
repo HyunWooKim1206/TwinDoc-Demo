@@ -5,7 +5,7 @@ function pagePost(param) {
 
 function getProd() {
     $.when(
-        $.getJSON('../json/10Prod.json', function (data) {
+        $.getJSON('../json/predict_test_new_idx_for_demo.json', function (data) {
             jsonData = data;
         })
     ).then(function (data) {
