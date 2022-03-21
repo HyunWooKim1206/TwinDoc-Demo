@@ -27,8 +27,8 @@ function setData() {
         //각각의 KeyPhrase에 해당하는 리뷰 추출
         $.each(content, function (keyPhrase, review) {
             //리뷰추출
-            reviews[keyPhrase] = review[1][0];
-            console.log(review[1][0].comment, "리뷰");
+            reviews[keyPhrase] = review[1];
+            console.log(review[1], "리뷰");
             //유사상품 추출
             //유사상품이미지
             let sim = [];
@@ -36,10 +36,10 @@ function setData() {
             // similarProds[keyPhrase] = review[2];
             $.each(review[2], function (i, prod) {
                 sim.push(prod.similarProdName);
-                simImg.push(prod.similarProdImg);
+                simImg.push(prod.simlarProdImg);
             });
-            similarProds[keyPhrase] = sim;
-            similarProdsImg[keyPhrase] = simImg;
+            // similarProds[keyPhrase] = sim;
+            // similarProdsImg[keyPhrase] = simImg;
             //idx
             $.each(review[1], function (idx, key) {
                 console.log(key.idx, "idx");
@@ -49,8 +49,10 @@ function setData() {
             $("#reviewAll").append($button);
         });
         $(document).on('click', 'button', function () {
-            let btnId = $(this).attr('id');
-            if (btnId == 'btnReviewAll') {
+            let btnID = $(this).attr('id');
+            var rvAll = "";
+            var rv = "";
+            if (btnID == 'btnReviewAll') {
                 const reviewAll = [];
                 Object.entries(reviews)
                     .flatMap(([_, value]) => value)
@@ -61,49 +63,81 @@ function setData() {
                 rvAll = JSON.stringify(reviewAll).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
                 console.log(rvAll);
             } else {
-
-            }
+                //KeyPhrase에 해당하는 리뷰
+                rv = JSON.stringify(reviews[btnID]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
+                $.each(content, function (keyPhrase, review) {
+                    let similarProd = [];
+                    let similarProdImg = [];
+                    $.each(review[2], function (i, prod) {
+                        similarProd.push(prod.similarProdName);
+                        similarProdImg.push(prod.similarProdImg);
+                    });
+                    let test = [];
+                    $.each(similarProdImg, function (i, img) {
+                        if (btnID == keyPhrase) {
+                            let $img = "<div id= '" + btnID + "'><img src = '" + img + "'</div>";
+                            console.log($img);
+                            $('.modal_content').append($img);
+                        }
+                        test.push(img);
+                    })
+                    console.log(test,"test");
+                    $.each(similarProd, function (i, name) {
+                        if (btnID == keyPhrase) {
+                            let $name = "<div id= '" + btnID + "'>" + name + "'</div>";
+                            console.log($name);
+                            $('.modal_content').append($name);
+                        }
+                    });
+                });
+                $(".modal").fadeIn();
+                $(".modal").click(function () {
+                    $(".modal").fadeOut();
+                    $('.modal_content *').remove();
+                });
+            };
+            $('#allReview').html(rvAll);
+            $('#review').html(rv);
         })
     });
 };
 
 //해당 keyPhrase를 눌렀을때 review&유사상품 추출
-$(document).on('click', 'button', function () {
-    let keyPhrase = $(this).attr('id');
-    console.log(keyPhrase);
-    //전체 리뷰
-    var rvAll = "";
-    //리뷰 
-    var rv = "";
-    //유사상품
-    var sp = "";
-    //전체리뷰 출력
-    if (keyPhrase == 'btnReviewAll') {
-        const reviewAll = [];
-        Object.entries(reviews)
-            .flatMap(([_, value]) => value)
-            .forEach(data => {
-                const sameData = reviewAll.find(resultData => resultData.comment === data.comment)
-                if (!sameData) reviewAll.push(data);
-            });
-        rvAll = JSON.stringify(reviewAll).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
-        console.log(rvAll);
-    } else {
-        //KeyPhrase에 해당하는 리뷰
-        rv = JSON.stringify(reviews[keyPhrase]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
-        sp = JSON.stringify(similarProds[keyPhrase]).replaceAll(/[\{\[\]\\\/]/g, " ").replaceAll(/[\,\"]/g, "<br>").replaceAll(/\:/g, ": ");
-        $(".modal").fadeIn();
-        $(".modal").click(function () {
-            $(".modal").fadeOut();
-        });
-        console.log(rv);
-    };
-    //전체 리뷰, 각 리뷰, 유사상품 html에 그리기
-    $('.modal_content').html(sp);
-    $('#allReview').html(rvAll);
-    $('#review').html(rv);
-});
-console.log(similarProdsImg);
+// $(document).on('click', 'button', function () {
+//     let keyPhrase = $(this).attr('id');
+//     console.log(keyPhrase);
+//     //전체 리뷰
+//     var rvAll = "";
+//     //리뷰 
+//     var rv = "";
+//     //유사상품
+//     var sp = "";
+//     //전체리뷰 출력
+//     if (keyPhrase == 'btnReviewAll') {
+//         const reviewAll = [];
+//         Object.entries(reviews)
+//             .flatMap(([_, value]) => value)
+//             .forEach(data => {
+//                 const sameData = reviewAll.find(resultData => resultData.comment === data.comment)
+//                 if (!sameData) reviewAll.push(data);
+//             });
+//         rvAll = JSON.stringify(reviewAll).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
+//         console.log(rvAll);
+//     } else {
+//         //KeyPhrase에 해당하는 리뷰
+//         rv = JSON.stringify(reviews[keyPhrase]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
+//         sp = JSON.stringify(similarProds[keyPhrase]).replaceAll(/[\{\[\]\\\/\,]/g, " ").replaceAll(/[\"]/g, "<br>").replaceAll(/\:/g, ": ");
+//         $(".modal").fadeIn();
+//         $(".modal").click(function () {
+//             $(".modal").fadeOut();
+//         });
+//     };
+//     //전체 리뷰, 각 리뷰, 유사상품 html에 그리기
+//     $('.modal_content').html(sp);
+//     $('#allReview').html(rvAll);
+//     $('#review').html(rv);
+// });
+
 $(function () {
     setData();
 });
