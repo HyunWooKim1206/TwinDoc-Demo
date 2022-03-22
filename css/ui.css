@@ -327,3 +327,33 @@
 .green {
     color:#2A715A;
 }
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 100%, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+.modal{
+    position: absolute;
+    width: 100%; height: 100%;
+    background-color:  rgba(0,0,0,0.8);
+    top: 0; left: 0;
+    animation: fadeInUp 1s;
+    display: none;
+}
+
+.modal_content{
+    width:800px; height:400px;
+    background:#fff; border-radius:10px;
+    position:relative; top:50%; left:50%;
+    margin-top:-100px; margin-left:-200px;
+    text-align:center;
+    box-sizing:border-box; padding:74px 0;
+    line-height:23px; cursor:pointer;
+  } 
