@@ -5,7 +5,7 @@ function pagePost(param) {
 
 function getProd() {
     $.when(
-        $.getJSON('../json/predict_test_new_idx_for_demo.json', function (data) {
+        $.getJSON('../json/10Prod.json', function (data) {
             jsonData = data;
         })
     ).then(function (data) {
@@ -15,7 +15,17 @@ function getProd() {
             let prodName = product.prodName;
             console.log(prodName, prodNum);
             //home.html에 상품 갯수에 맞게 추가
-            let $div = "<div id='" + prodNum + "'><a class='link'><img src='" + prodImg + "'>" + prodName + "</a></div>";
+            let $div =
+              "<li id='" +
+              prodNum +
+              "'><a class='link'><div><img src='" +
+              prodImg +
+              "'></div> " +
+              "<div class='product-info'><p class='title'> " +
+              prodName +
+              "</p><p class='price'><strong>57,320</strong>원</p><div class='star-rating'><span class='star'>★★★★</span>★<span class='count'>(99)</span></div></div>";
+             
+              "</></li > ";
             $("#product-review").append($div);
         });
     });
