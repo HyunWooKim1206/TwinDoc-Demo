@@ -1,8 +1,7 @@
 //전역데이터 저장
 let jsnData = {};
 let reviews = {};
-let similarProds = {};
-let similarProdsImg = {};
+
 // 화면 구성
 function setData() {
     $.when(
@@ -21,29 +20,22 @@ function setData() {
         let $img = "<img src = '" + prodImg + "'>" + prodName + "</button>"
         $("#prod").append($img);
         // console.log(data[prodNum].content.keyPhrase1[1][0].phrase, "phrase");
+
         //keyphrase를 추출
         let content = data[prodNum].content;
         console.log(content, "content");
+
         //각각의 KeyPhrase에 해당하는 리뷰 추출
         $.each(content, function (keyPhrase, review) {
             //리뷰추출
             reviews[keyPhrase] = review[1];
             console.log(review[1], "리뷰");
-            //유사상품 추출
-            //유사상품이미지
-            let sim = [];
-            let simImg = [];
-            // similarProds[keyPhrase] = review[2];
-            $.each(review[2], function (i, prod) {
-                sim.push(prod.similarProdName);
-                simImg.push(prod.simlarProdImg);
-            });
-            // similarProds[keyPhrase] = sim;
-            // similarProdsImg[keyPhrase] = simImg;
+
             //idx
             $.each(review[1], function (idx, key) {
                 console.log(key.idx, "idx");
             });
+
             //버튼 all, keyPhrase해당하는 만큼 버튼만들기
             let $button = "<button id = '" + keyPhrase + "'>" + review[0] + "</button>";
             $("#reviewAll").append($button);
@@ -66,32 +58,33 @@ function setData() {
                 //KeyPhrase에 해당하는 리뷰
                 rv = JSON.stringify(reviews[btnID]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
                 $.each(content, function (keyPhrase, review) {
-                    let similarProd = [];
+                    let similarProdName = [];
                     let similarProdImg = [];
                     $.each(review[2], function (i, prod) {
-                        similarProd.push(prod.similarProdName);
+                        similarProdName.push(prod.similarProdName);
                         similarProdImg.push(prod.similarProdImg);
                     });
-                    let test = [];
-                    $.each(similarProdImg, function (i, img) {
-                        if (btnID == keyPhrase) {
-                            let $img = "<div id= '" + btnID + "'><img src = '" + img + "'</div>";
-                            console.log($img);
-                            $('.modal_content').append($img);
+                    if (btnID == keyPhrase) {
+                        for (let i = 0; i < similarProdImg.length; i++) {
+                            let $btnId = $(`<div class = '${btnID}'></div>`);
+                            $btnId.append($(`<img src = '${similarProdImg[i]}'>`));
+                            $btnId.append($(`<div id = '${btnID}'>${similarProdName[i]}</div>`));
+                            $('#simProd').append($btnId)
                         }
-                    });
-                    $.each(similarProd, function (i, name) {
-                        if (btnID == keyPhrase) {
-                            let $name = "<div id= '" + btnID + "'>" + name + "'</div>";
-                            console.log($name);
-                            $('.modal_content').append($name);
-                        }
-                    });
+                        // $.each(similarProdImg, function (i, img) {
+                        //     let $img = "<div class= '" + btnID + "'><img src = '" + img + "'</div>";
+                        //     $('#simImg').append($img);
+                        // });
+                        // $.each(similarProdName, function (i, name) {
+                        //     let $name = "<div class= '" + btnID + "'>" + name + "</div>";
+                        //     $('#simName').append($name);
+                        // });
+                    }
                 });
                 $(".modal").fadeIn();
                 $(".modal").click(function () {
                     $(".modal").fadeOut();
-                    $('.modal_content *').remove();
+                    $('#simProd *').remove();
                 });
             };
             $('#allReview').html(rvAll);
@@ -99,42 +92,6 @@ function setData() {
         })
     });
 };
-
-//해당 keyPhrase를 눌렀을때 review&유사상품 추출
-// $(document).on('click', 'button', function () {
-//     let keyPhrase = $(this).attr('id');
-//     console.log(keyPhrase);
-//     //전체 리뷰
-//     var rvAll = "";
-//     //리뷰 
-//     var rv = "";
-//     //유사상품
-//     var sp = "";
-//     //전체리뷰 출력
-//     if (keyPhrase == 'btnReviewAll') {
-//         const reviewAll = [];
-//         Object.entries(reviews)
-//             .flatMap(([_, value]) => value)
-//             .forEach(data => {
-//                 const sameData = reviewAll.find(resultData => resultData.comment === data.comment)
-//                 if (!sameData) reviewAll.push(data);
-//             });
-//         rvAll = JSON.stringify(reviewAll).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
-//         console.log(rvAll);
-//     } else {
-//         //KeyPhrase에 해당하는 리뷰
-//         rv = JSON.stringify(reviews[keyPhrase]).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
-//         sp = JSON.stringify(similarProds[keyPhrase]).replaceAll(/[\{\[\]\\\/\,]/g, " ").replaceAll(/[\"]/g, "<br>").replaceAll(/\:/g, ": ");
-//         $(".modal").fadeIn();
-//         $(".modal").click(function () {
-//             $(".modal").fadeOut();
-//         });
-//     };
-//     //전체 리뷰, 각 리뷰, 유사상품 html에 그리기
-//     $('.modal_content').html(sp);
-//     $('#allReview').html(rvAll);
-//     $('#review').html(rv);
-// });
 
 $(function () {
     setData();

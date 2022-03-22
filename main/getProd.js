@@ -16,16 +16,16 @@ function getProd() {
             console.log(prodName, prodNum);
             //home.html에 상품 갯수에 맞게 추가
             let $div =
-              "<li id='" +
-              prodNum +
-              "'><a class='link'><div><img src='" +
-              prodImg +
-              "'></div> " +
-              "<div class='product-info'><p class='title'> " +
-              prodName +
-              "</p><p class='price'><strong>57,320</strong>원</p><div class='star-rating'><span class='star'>★★★★</span>★<span class='count'>(99)</span></div></div>";
-             
-              "</></li > ";
+                "<li id='" +
+                prodNum +
+                "'><a class='link'><div><img src='" +
+                prodImg +
+                "'></div> " +
+                "<div class='product-info'><p class='title'> " +
+                prodName +
+                "</p><p class='price'><strong>57,320</strong>원</p><div class='star-rating'><span class='star'>★★★★</span>★<span class='count'>(99)</span></div></div>";
+
+            "</></li > ";
             $("#product-review").append($div);
         });
     });
@@ -36,6 +36,6 @@ $(function () {
 });
 
 $(document).on('click', '.link', function () {
-    let cId = $(this).parent('div').attr('id');
+    let cId = $(this).parent('li').attr('id');
     pagePost(cId);
 });
