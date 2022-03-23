@@ -1,7 +1,7 @@
 //전역데이터 저장
 let jsnData = {};
 let reviews = {};
-let rvs = [];
+
 // 화면 구성
 function setData() {
     $.when(
@@ -25,52 +25,39 @@ function setData() {
         let content = data[prodNum].content;
         console.log(content, "content");
 
+        $.each(content, function(keyPhrase, review){
+            $.each(review[1], function(i, prod){
+                let $rv = $(`<div class = '${keyPhrase}'>${prod.comment}</div>'`);
+                $('#allReview').append($rv);
+            })
+        })
         //각각의 KeyPhrase에 해당하는 리뷰 추출
         $.each(content, function (keyPhrase, review) {
             //리뷰추출
             reviews[keyPhrase] = review[1];
-           
             console.log(review[1], "리뷰");
-
-            $.each(review[1], function(i,prod){
-            });
-
-            //idx
-            // $.each(review[1], function (idx, key) {
-            //     console.log(key.idx, "idx");
-            // });
 
             //버튼 all, keyPhrase해당하는 만큼 버튼만들기
             let $button = "<button id = '" + keyPhrase + "'>" + review[0] + "</button>";
             $("#reviewAll").append($button);
         });
+
+        //keyPhrase 클릭시 해당 리뷰 & 유사상품 출력
         $(document).on('click', 'button', function () {
             $('#review *').remove();
             $('#allReview *').remove();
             let btnID = $(this).attr('id');
-            var rvAll = "";
-            if (btnID == 'btnReviewAll') {
-                // const reviewAll = [];
-                // Object.entries(reviews)
-                //     .flatMap(([_, value]) => value)
-                //     .forEach(data => {
-                //         const sameData = reviewAll.find(resultData => resultData.comment === data.comment)
-                //         if (!sameData) reviewAll.push(data);
-                //     });
-                // rvAll = JSON.stringify(reviewAll).replaceAll("userNum", "회원번호").replaceAll("comment", "리뷰").replaceAll(/["\{\[\]\\\/]/g, " ").replaceAll(/[\}\,]/g, "<br>").replaceAll(/\:/g, ": ");
-                // console.log(rvAll);
-                $.each(content, function(keyPhrase, review){
-                    $.each(review[1], function(i, prod){
-                        let $rv = $(`<div class = '${btnID}'>${prod.comment}</div>'`);
-                        $('#allReview').append($rv);
-                    })
-                })
-            } else {
+            if (btnID != 'btnReviewAll') {
                 //KeyPhrase에 해당하는 리뷰
                 $.each(content, function (keyPhrase, review) {
                     $.each(review[1], function (i, prod) {
                         if (btnID == keyPhrase) {
-                            let $rv = $(`<div class = '${btnID}'>${prod.comment}</div>'`)
+                            //highlighting을 위한 index값
+                            let idx = prod.idx[0];
+                            console.log(idx);
+                            let comment = prod.comment;
+                            let highlight = comment.substring(0, idx[0])+'<font color="red">'+ comment.substring(idx[0],idx[1])+'</font>' + comment.substring(idx[1]);
+                            let $rv = $(`<div class = '${btnID}'>${highlight}</div>'`)
                             $('#review').append($rv);
                         }
                     });
@@ -95,8 +82,7 @@ function setData() {
                     $('#simProd *').remove();
                 });
             };
-            // $('#allReview').html(rvAll);
-        })
+        });
     });
 };
 
