@@ -45,9 +45,9 @@ function setData() {
         //keyPhrase 클릭시 해당 리뷰 & 유사상품 출력
         $(document).on('click', 'button', function () {
             $('#review *').remove();
+            $('#allReview *').remove();
             let btnID = $(this).attr('id');
             if (btnID != 'btnReviewAll') {
-                $('#allReview *').remove();
                 //KeyPhrase에 해당하는 리뷰
                 $.each(content, function (keyPhrase, review) {
                     $.each(review[1], function (i, prod) {
@@ -81,7 +81,14 @@ function setData() {
                     $(".modal").fadeOut();
                     $('#simProd *').remove();
                 });
-            };
+            }else{
+                $.each(content, function(keyPhrase, review){
+                    $.each(review[1], function(i, prod){
+                        let $rv = $(`<div class = '${btnID}'>${prod.comment}</div>'`);
+                        $('#allReview').append($rv);
+                    })
+                })
+            }
         });
     });
 };
