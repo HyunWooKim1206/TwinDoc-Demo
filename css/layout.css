@@ -111,7 +111,7 @@
 #container .compactFixed.is-fixed{top:69px !important; z-index:999 !important;}
 #container .product-detail .compactFixed.tab-wrap.is-fixed{top:0 !important;}
 
-#container{position:relative; padding-bottom:100px; min-height:50vh;}
+#container{position:relative;  min-height:50vh;}
 #container:before{content:''; display:block; overflow:hidden; height:1px; margin-top:-1px;}
 .contents:before {content:''; display:block; overflow:hidden; height:1px; margin-top:-1px;}
 #container.cols-2:before {margin-top:0;}
@@ -426,7 +426,7 @@
 }/* modal */
 #modal-wrap {position:absolute; top:0; left:0; width:100%; height:100%; min-width:1280px;}
 #modal-wrap .dimmed {position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.5)}
-.modal {position:absolute; top:50%; left:50%;  padding-bottom:20px; box-sizing:border-box; background:#fff; border:1px solid #ddd; transform:translateX(-50%) translateY(-50%); -ms-transform:translateX(-50%) translateY(-50%); }
+/* .modal {position:absolute; top:50%; left:50%;  padding-bottom:20px; box-sizing:border-box; background:#fff; border:1px solid #ddd; transform:translateX(-50%) translateY(-50%); -ms-transform:translateX(-50%) translateY(-50%); } */
 .modal .modal-header {margin:0 40px 0 35px; padding:30px 0 20px 0; min-height:25px;}
 .modal .modal-header.border-type {margin-bottom:30px; border-bottom:1px solid #00542f;}
 .modal .modal-header.linear {margin-bottom:20px; padding-bottom:26px; border-bottom: 1px solid #aaa;}
