@@ -1,0 +1,1 @@
+git이나 zip으로 프로젝트 다운 받으시고 vs코드에서 live server라는 확장 프로그램 다운 후 main의 home.html 파일을 ALT + L + O 로  실행시키면 됩니다.
