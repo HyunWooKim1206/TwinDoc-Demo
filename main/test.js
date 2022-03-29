@@ -54,18 +54,13 @@ function setData() {
             "</div>";
         "</div>" + "</div>";
         $("#prod").append($img);
-
         //keyphrase를 추출
         let content = data[prodNum].content;
         console.log(content, "content");
-
         //detail.html 시작에 보여줄 allReview
         $.each(content, function (keyPhrase, review) {
             $.each(review[1].sort(date_descending), function (i, prod) {
                 let $rv =
-                    //   $(
-                    //   `<div class = '${keyPhrase}'><div id='date'>${prod.rev_date}</div>${prod.comment}</div>'`
-                    // );
                     "<li class='default_item ellips'>" +
                     "<div class='review_user_info'>" +
                     "<span class='thumb'>" +
@@ -96,7 +91,6 @@ function setData() {
                     "</div>" +
                     "</li>";
                 $("#allReview").append($rv);
-                console.log("#allReview".length, "rd");
             });
         });
 
@@ -110,7 +104,7 @@ function setData() {
             let $button =
                 "<button id = '" +
                 keyPhrase +
-                "' class='review_tag'>" + "# " +
+                "' class='review_tag '>" + "# " +
                 review[0] +
                 "</button>";
             $("#reviewAll").append($button);
@@ -122,6 +116,14 @@ function setData() {
             $("#review *").remove();
             $("#allReview *").remove();
             let btnID = $(this).attr("id");
+            //버튼 active class
+            $('.review_all').removeClass('active');
+            if ($(this).hasClass('active')) {
+                $('.review_tag').removeClass('active');
+            } else {
+                $('.review_tag').removeClass('active');
+                $(this).addClass('active');
+            }
             if (btnID != "btnReviewAll") {
                 //KeyPhrase에 해당하는 리뷰
                 $.each(content, function (keyPhrase, review) {
