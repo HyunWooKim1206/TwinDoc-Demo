@@ -28,18 +28,19 @@ function setData() {
         let pageNum = 0;
         let numberOfReview = 0;
         let reviewArray = [];
-        let secArray=[];
 
         //detail.html 시작에 보여줄 allReview
         $.each(content, function (keyPhrase, review) {
             $.each(review[1].sort(date_descending), function (i, prod) {
                 numberOfReview++;
-                if (numberOfReview % 5 === 0) {
-                    pageNum++;
-                }
                 let $rv = $(`<div class = '${keyPhrase}'><div id='date'>${prod.rev_date}</div>${prod.comment}</div>'`);
+                if (numberOfReview % 5 == 0) {
+                    pageNum++;
+                    $('#page').append(pageNum);
+                    reviewArray.push($rv);
+                }
                 // reviewArray[numberOfReview] = $rv;
-                reviewArray.push($rv);
+                $('#allReview').append(reviewArray);
             });
         });
         console.log(reviewArray.length);
@@ -47,18 +48,10 @@ function setData() {
         //     console.log(reviewArray[i]);
         //     $('#allReview').append(reviewArray[i])
         // }
-        $.each(reviewArray,function(i,idx){
-            if(i%5==0){
-                $('#allReview').append(reviewArray[i])
-            }
-        })
-        
-        // $.each(reviewArray[pageNum], function(i,idx){
-        //     console.log(idx);
-        // })
         // reviewArray[0].forEach(value => {
         //     $('#allReview').append(reviewArray[pageNum]);
         // });
+
         //각각의 KeyPhrase에 해당하는 리뷰 추출
         $.each(content, function (keyPhrase, review) {
             //리뷰추출
