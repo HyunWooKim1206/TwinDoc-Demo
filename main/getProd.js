@@ -1,6 +1,6 @@
 function pagePost(param) {
     localStorage.setItem("prodNum", JSON.stringify(param));
-    location.href = 'detail2.html';
+    location.href = 'detail.html';
 };
 
 function getProd() {
@@ -39,18 +39,3 @@ $(document).on('click', '.link', function () {
     let cId = $(this).parent('li').attr('id');
     pagePost(cId);
 });
-
-
-// var items = data[1]; // 두번쨰 데이터를 가져와서
-
-// // 항목 개수만큼 돌면서
-// for (var i = 0; i < items.length; i++) {
-//     var item = items[i]; // 아이템을 얻고
-//     var phrase = item['phrase']; // phrase를 가져오고
-//     var s_index = item['idx'][0][0]; // 시작 위치
-//     var e_index = item['idx'][0][1]; // 끝 위치
-//     var start = msg.substring(0, s_index); // 처음부터 phrase 시작위치까지 문자열을 찾는다.
-//     var middle = msg.substr(s_index, phrase.length);	// 시작위치 부터 phrase 길이만큼의 문자열을 가져온다.
-//     var end = msg.substr(s_index + phrase.length); // phrase 뒤 문자열을 찾는다.
-//     console.log(start, middle, end);
-// }

@@ -24,20 +24,46 @@ function setData() {
         let content = data[prodNum].content;
         console.log(content, "content");
 
+
+        let pageNum = 0;
+        let numberOfReview = 0;
+        let reviewArray = [];
+        let secArray=[];
+
         //detail.html 시작에 보여줄 allReview
         $.each(content, function (keyPhrase, review) {
             $.each(review[1].sort(date_descending), function (i, prod) {
+                numberOfReview++;
+                if (numberOfReview % 5 === 0) {
+                    pageNum++;
+                }
                 let $rv = $(`<div class = '${keyPhrase}'><div id='date'>${prod.rev_date}</div>${prod.comment}</div>'`);
-                $('#allReview').append($rv);
-                console.log(("#allReview").length, "rd");
-            })
+                // reviewArray[numberOfReview] = $rv;
+                reviewArray.push($rv);
+            });
         });
+        console.log(reviewArray.length);
+        // for(let i =0; i< reviewArray.length;i++){
+        //     console.log(reviewArray[i]);
+        //     $('#allReview').append(reviewArray[i])
+        // }
+        $.each(reviewArray,function(i,idx){
+            if(i%5==0){
+                $('#allReview').append(reviewArray[i])
+            }
+        })
         
+        // $.each(reviewArray[pageNum], function(i,idx){
+        //     console.log(idx);
+        // })
+        // reviewArray[0].forEach(value => {
+        //     $('#allReview').append(reviewArray[pageNum]);
+        // });
         //각각의 KeyPhrase에 해당하는 리뷰 추출
         $.each(content, function (keyPhrase, review) {
             //리뷰추출
             reviews[keyPhrase] = review[1];
-            console.log(review[1], "리뷰");
+            console.log(review[1]);
 
             //버튼 all, keyPhrase해당하는 만큼 버튼만들기
             let $button = "<button id = '" + keyPhrase + "'>" + review[0] + "</button>";
@@ -65,6 +91,7 @@ function setData() {
                             let highlight = comment.substring(0, idx[0]) + '<font color="red">' + comment.substring(idx[0], idx[1]) + '</font>' + comment.substring(idx[1]);
                             let $rv = $(`<div class = '${btnID}'><div id='date'>${rvDate.substring(0, 10).replace(/-/g, '')}</div>${highlight}</div>'`)
                             $('#review').append($rv);
+                            console.log();
                         }
                     });
                     //유사상품 이미지 & 명
