@@ -33,21 +33,24 @@ function setData() {
         $.each(content, function (keyPhrase, review) {
             $.each(review[1].sort(date_descending), function (i, prod) {
                 numberOfReview++;
-                let $rv = $(`<div class = '${keyPhrase}'><div id='date'>${prod.rev_date}</div>${prod.comment}</div>'`);
-                if (numberOfReview % 5 == 0) {
+                if (numberOfReview % 10 == 0) {
                     pageNum++;
-                    $('#page').append(pageNum);
-                    reviewArray.push($rv);
+                    let $pageNum = $(`<button type="button" class="${pageNum}"><span>${pageNum}</span></button>`)
+                    $('.reviewTab-paging').append($pageNum);
                 }
-                // reviewArray[numberOfReview] = $rv;
-                $('#allReview').append(reviewArray);
+                let $rv = $(`<div class = '${keyPhrase}'><div id='date'>${prod.rev_date}</div>${prod.comment}</div>'`);
+                reviewArray.push($rv);
             });
         });
-        console.log(reviewArray.length);
-        // for(let i =0; i< reviewArray.length;i++){
-        //     console.log(reviewArray[i]);
-        //     $('#allReview').append(reviewArray[i])
-        // }
+        $(document).on('click', 'button', function () {
+            let page = $(this).attr('class');
+            page = Number(page);
+            console.log(page);
+            $('#allReview').append(reviewArray.slice((page * 10) - 10, (page * 10) - 1));
+            $('#allReview').append(reviewArray.slice(20, 30));
+        })
+
+        $('#allReview').append(reviewArray.slice(30, 40));
         // reviewArray[0].forEach(value => {
         //     $('#allReview').append(reviewArray[pageNum]);
         // });
