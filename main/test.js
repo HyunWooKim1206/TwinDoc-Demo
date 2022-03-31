@@ -138,9 +138,9 @@ function setData() {
                             //review highlighting
                             let highlight =
                                 comment.substring(0, idx[0]) +
-                                '<span style="background:#ffd081">' +
+                                '<span style="background:#ffd081"><strong>' +
                                 comment.substring(idx[0], idx[1]) +
-                                "</span>" +
+                                "</strong></span>" +
                                 comment.substring(idx[1]);
                             let $rv =
                                 //   $(
@@ -189,13 +189,9 @@ function setData() {
                     });
                     //모달 form에 전달할 유사상품 정보
                     if (btnID == keyPhrase) {
+                        $('#simProd *').remove();
                         for (let i = 0; i < similarProdImg.length; i++) {
                             let $btnId =
-                                //   $(`<div class = '${btnID}'></div>`);
-                                // $btnId.append($(`<img src = '${similarProdImg[i]}'>`));
-                                // $btnId.append(
-                                //   $(`<div id = '${btnID}'>${similarProdName[i]}</div>`)
-                                // );
                                 "<li>" +
                                 "<div class='product-info'>" +
                                 "<div class='name'>" +
