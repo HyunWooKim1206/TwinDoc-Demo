@@ -3,6 +3,11 @@
 
 <head>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="pagination.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/ui.css">
     <title>Detail</title>
 </head>
@@ -40,11 +45,22 @@
             <button type="button" class="btn-last" onclick="goPage(2,'reviewTab','40112878')"><span>마지막</span></button> -->
         </div>
     </div>
-    <div id="div_page"></div>    
+    <div class="wrapper">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul id="pagination-demo" class="pagination-sm"></ul>
+                    <ul id="pagination-demo2" class="pagination-sm"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="div_page"></div>
 </body>
 <script src="getReview.js"></script>
 <script>
-    
+
 </script>
 
 </html>

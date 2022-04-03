@@ -1,48 +1,109 @@
 <html>
-<head>
- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
- <script>	
-function onload(){
-  console.log("Test");
-}
- </script>
-</head>
-<body onload="onload">
-<div id="container">
-  <h1>Example</h1>
-</div>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="test.js"></script>
+    <script>
+      $(function () {
+        setData();
+      });
+      function pageAlgo(total, bottomSize, listSize, cursor) {
+        //total = 총 갯수
+        //bottomSize = 하단크기
+        //listSize = 화면에서 보여줄 크기
+        //cursor = 현재 나의 페이지
 
-<h1 style="text-align: center;">
-  <a href="home.html">CJ THE MARKET</a>
-</h1>
-<div id="prod"></div>
-<div id="reviewAll">
-  <button id="btnReviewAll">
-      모든리뷰
-  </button>
-</div>
-<div class="modal">
-  <div class="modal_content">
-      <div id="simProd"></div>
-  </div>
-</div>
-<div id="showReview"><br>리뷰<br><br></div>
-<!-- <div id="allReview"></div> -->
-<div id="bound">
-  <div id="review" class="rv"></div>
-</div>
-<div class="mb100">
-  <ul class='review_list' id="allReview"></ul>
-  <div class="reviewTab-paging paging">
-  </div>
-</div>
-<div id="div_page"></div>  
+        var totalPageSize = Math.ceil(total / listSize); //한 화면에 보여줄 갯수에서 구한 하단 총 갯수
 
-</body>
-<script src="test.js">
-</script>
-<script>
-	
-	
- </script>
+        var firstBottomNumber =
+          cursor % bottomSize > 0
+            ? cursor - (cursor % bottomSize) + 1
+            : cursor - bottomSize + 1; //하단 최초 숫자
+
+        var lastBottomNumber =
+          cursor % bottomSize > 0
+            ? cursor - (cursor % bottomSize) + bottomSize
+            : firstBottomNumber + bottomSize - 1; //하단 마지막 숫자
+
+        if (lastBottomNumber > totalPageSize) lastBottomNumber = totalPageSize; //총 갯수보다 큰 경우 방지
+
+        return {
+          firstBottomNumber,
+          lastBottomNumber,
+          totalPageSize,
+          total,
+          bottomSize,
+          listSize,
+          cursor,
+        };
+      }
+
+      function displayPage(cur_page) {
+        //280개의 데이터, 하단에는 20개씩, 1개화면에는 10개, 지금 나의페이지는 21
+
+        console.log("reviewArray", reviewArray.length);
+        var info = pageAlgo(reviewArray.length + 1, 20, 10, cur_page);
+        console.log(info);
+        var pageHtml = "<br>";
+        if (info.firstBottomNumber > 1)
+          pageHtml +=
+            "<a href='#' id='" +
+            (info.firstBottomNumber - 1) +
+            "' onclick='callPaging(this)'>이전</a><span> </span>";
+        for (var i = info.firstBottomNumber; i <= info.lastBottomNumber; i++) {
+          var s = i;
+          if (i == info.cursor) s = '<span style="color:red">' + i + "</span>";
+          pageHtml +=
+            "<a href='#' id='" +
+            i +
+            "' onclick='callPaging(this)'>" +
+            s +
+            "</a><span> </span>";
+        }
+        if (info.lastBottomNumber < info.totalPageSize)
+          pageHtml +=
+            "<a href='#' id='" +
+            (info.lastBottomNumber + 1) +
+            "' onclick='callPaging(this)'>다음</a><span> </span>";
+        var pageobj = document.getElementById("div_page");
+        pageobj.innerHTML = pageHtml;
+      }
+
+      function callPaging(obj) {
+        var cur_page = parseInt(obj.id);
+        console.log(cur_page);
+        $(function () {
+          setData();
+        });
+        displayPage(cur_page);
+      }
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <h1>Example</h1>
+    </div>
+
+    <h1 style="text-align: center">
+      <a href="home.html">CJ THE MARKET</a>
+    </h1>
+    <div id="prod"></div>
+    <div id="reviewAll">
+      <button id="btnReviewAll">모든리뷰</button>
+    </div>
+    <div class="modal">
+      <div class="modal_content">
+        <div id="simProd"></div>
+      </div>
+    </div>
+    <div id="showReview"><br />리뷰<br /><br /></div>
+    <!-- <div id="allReview"></div> -->
+    <div id="bound">
+      <div id="review" class="rv"></div>
+    </div>
+    <div class="mb100">
+      <ul class="review_list" id="allReview"></ul>
+    </div>
+    <div id="div_page"></div>
+  </body>
+  <script></script>
 </html>
