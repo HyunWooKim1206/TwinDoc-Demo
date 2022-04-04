@@ -1,6 +1,6 @@
 function pagePost(param) {
     localStorage.setItem("prodNum", JSON.stringify(param));
-    location.href = 'detail.html';
+    location.href = 'detail2.html';
 };
 
 function getProd() {

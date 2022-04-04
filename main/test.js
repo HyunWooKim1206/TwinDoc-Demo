@@ -1,6 +1,8 @@
 //전역데이터 저장
 let jsnData = {};
 let reviews = {};
+let allReviewArray = [];
+let keyPhraseArray = [];
 
 // 화면 구성
 function setData() {
@@ -73,7 +75,7 @@ function setData() {
                     "</p>" +
                     "</div>" +
                     "<p class='user_info'>" +
-                    "<span class='id'>acs1***</span> <span class='date'>" + prod.rev_date.substring(0, 10) + "</span>" +
+                    "<span class='id'>acs1***</span> <span class='date'>" + prod.rev_date.substring(0, 10)+ "</span>" +
                     "<button class='btn_notify' type='button' onclick=''>" +
                     "<span>신고하기</span>" +
                     "</button>" +
@@ -90,8 +92,20 @@ function setData() {
                     "</button>" +
                     "</div>" +
                     "</li>";
-                $("#allReview").append($rv);
+                allReviewArray.push($rv);
             });
+        });
+        let total = allReviewArray.length;
+        $('#pagination').twbsPagination({
+            totalPages: total / 4,
+            visiblePages: 10,
+            startPage : 1,
+            next: 'Next',
+            prev: 'Prev',
+            onPageClick: function (event, page) {
+                //fetch content and render here                
+                $('#allReview').html(allReviewArray.slice(page * 4 - 4, page * 4));
+            }
         });
 
         //각각의 KeyPhrase에 해당하는 리뷰 추출
@@ -113,8 +127,10 @@ function setData() {
         //keyPhrase 클릭시 해당 리뷰 & 유사상품 출력
         $(document).on("click", "button", function () {
             //review & allReview div 내용 삭제
+            keyPhraseArray = [];
             $("#review *").remove();
-            $("#allReview *").remove();
+            $('#allReview *').remove();
+            $('#pagination *').remove();
             let btnID = $(this).attr("id");
             //버튼 active class
             $('.review_all').removeClass('active');
@@ -177,7 +193,7 @@ function setData() {
                                 "</button>" +
                                 "</div>" +
                                 "</li>";
-                            $("#review").append($rv);
+                            keyPhraseArray.push($rv);
                         }
                     });
                     //유사상품 이미지 & 명
@@ -205,6 +221,17 @@ function setData() {
                                 "</li>";
                             $("#simProd").append($btnId);
                         }
+                    }
+                });
+                $('#pagination2').twbsPagination({
+                    totalPages: keyPhraseArray.length / 4,
+                    visiblePages: 10,
+                    startPage : 1,
+                    next: 'Next',
+                    prev: 'Prev',
+                    onPageClick: function (event, page) {
+                        //fetch content and render here                
+                        $('#allReview').html(keyPhraseArray.slice(page * 4 - 4, page * 4));
                     }
                 });
                 //모달 form
@@ -250,7 +277,18 @@ function setData() {
                             "</button>" +
                             "</div>" +
                             "</li>";
-                        $("#allReview").append($rv);
+                            allReviewArray.push($rv);
+                            let total = allReviewArray.length;
+                            $('#pagination').twbsPagination({
+                                totalPages: total / 4,
+                                visiblePages: 10,
+                                next: 'Next',
+                                prev: 'Prev',
+                                onPageClick: function (event, page) {
+                                    //fetch content and render here                
+                                    $('#allReview').html(allReviewArray.slice(page * 4 - 4, page * 4));
+                                }
+                            });
                     });
                 });
             }
@@ -263,6 +301,10 @@ function date_descending(a, b) {
     var dateA = new Date(a["rev_date"]).getTime();
     var dateB = new Date(b["rev_date"]).getTime();
     return dateA < dateB ? 1 : -1;
+}
+
+function reloadDivArea(){
+    $('.mb100').load(location.href + " .mb100");
 }
 
 $(function () {
