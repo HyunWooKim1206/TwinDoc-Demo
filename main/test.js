@@ -58,6 +58,13 @@ function setData() {
             "</div>";
         "</div>" + "</div>";
         $("#prod").append($img);
+        let $option_price = "<strong class = 'prodPrice'>"+ prodPrice+"</strong>";
+        $('.option-price').append($option_price);
+        let totalPrice = "<strong>"+prodPrice+"</strong>";
+        $('.item-sticky-list').append(totalPrice);
+        let $product_name = prodName;
+        $('.product-name').append($product_name);
+        $('.option-name').append($product_name);
         //keyphrase를 추출
         let content = data[prodNum].content;
         console.log(content, "content");
