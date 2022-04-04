@@ -22,6 +22,8 @@ function setData() {
         //이미지, 제품명 가져오기
         let prodImg = data[prodNum].prodImg;
         let prodName = data[prodNum].prodName;
+        let prodPrice = data[prodNum].prodPrice;
+        console.log(prodPrice);
         // let $img = "<img src = '" + prodImg + "'>" + prodName + "</button>";
         let $img =
             "<div class='product-info-box left'><div class='product-images'>" +
@@ -39,8 +41,8 @@ function setData() {
             "<p class='product-country'>원산지 : 하단 상품정보 원산지표시 참조</p>" +
             "<div class='price-info'>" +
             "<div class='price_item'>" +
-            "<div class='product_sel_price'><span class='number ff-roboto'>57,320</span>원</div>" +
-            "<div class='product_prime_price'><span class='number ff-roboto'>56,820</span>원<span class='txt'>the프라임 회원가</span><a href='' class='link'>무료체험하기</a></div>" +
+            "<div class='product_sel_price'><span class='number ff-roboto'>"+prodPrice.replace('.',',')+"</span>원</div>" +
+            "<div class='product_prime_price'><span class='number ff-roboto'>"+prodPrice+"</span>원<span class='txt'>the프라임 회원가</span><a href='' class='link'>무료체험하기</a></div>" +
             "</div>" +
             "<ul class='product-info-list'>" +
             "<li><span class='label'>카드혜택</span> CJ ONE 제휴카드 할인 <a href='' class='icon-help'></a></li>" +
@@ -48,7 +50,7 @@ function setData() {
             "<li><span class='label'>배송정보</span> 3,000원 <a href='' class='icon-help'></a></li>" +
             "</ul > " +
             "</div>" +
-            "<div class='price-total'><span class='label'>합계</span><span class='price'><strong>57,320</strong>원</span></div>" +
+            "<div class='price-total'><span class='label'>합계</span><span class='price'><strong>"+prodPrice+"</strong>원</span></div>" +
             "<div class='detail-btn-group'>" +
             "<button type='button' class='btn-white3-lg-gift'><span>선물</span></button>" +
             "<button type='button' class='btn-black'><span>주문하기</span></button>" +
