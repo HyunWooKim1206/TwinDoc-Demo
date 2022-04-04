@@ -41,8 +41,8 @@ function setData() {
             "<p class='product-country'>원산지 : 하단 상품정보 원산지표시 참조</p>" +
             "<div class='price-info'>" +
             "<div class='price_item'>" +
-            "<div class='product_sel_price'><span class='number ff-roboto'>"+prodPrice.replace('.',',')+"</span></div>" +
-            "<div class='product_prime_price'><span class='number ff-roboto'>"+prodPrice+"</span><span class='txt'>the프라임 회원가</span><a href='' class='link'>무료체험하기</a></div>" +
+            "<div class='product_sel_price'><span class='number ff-roboto'>" + prodPrice.replace('.', ',') + "</span></div>" +
+            "<div class='product_prime_price'><span class='number ff-roboto'>" + prodPrice + "</span><span class='txt'>the프라임 회원가</span><a href='' class='link'>무료체험하기</a></div>" +
             "</div>" +
             "<ul class='product-info-list'>" +
             "<li><span class='label'>카드혜택</span> CJ ONE 제휴카드 할인 <a href='' class='icon-help'></a></li>" +
@@ -50,7 +50,7 @@ function setData() {
             "<li><span class='label'>배송정보</span> 3,000원 <a href='' class='icon-help'></a></li>" +
             "</ul > " +
             "</div>" +
-            "<div class='price-total'><span class='label'>합계</span><span class='price'><strong>"+prodPrice+"</strong></span></div>" +
+            "<div class='price-total'><span class='label'>합계</span><span class='price'><strong>" + prodPrice + "</strong></span></div>" +
             "<div class='detail-btn-group'>" +
             "<button type='button' class='btn-white3-lg-gift'><span>선물</span></button>" +
             "<button type='button' class='btn-black'><span>주문하기</span></button>" +
@@ -58,9 +58,9 @@ function setData() {
             "</div>";
         "</div>" + "</div>";
         $("#prod").append($img);
-        let $option_price = "<strong class = 'prodPrice'>"+ prodPrice+"</strong>";
+        let $option_price = "<strong class = 'prodPrice'>" + prodPrice + "</strong>";
         $('.option-price').append($option_price);
-        let totalPrice = "<strong>"+prodPrice+"</strong>";
+        let totalPrice = "<strong>" + prodPrice + "</strong>";
         $('.item-sticky-list').append(totalPrice);
         let $product_name = prodName;
         $('.product-name').append($product_name);
@@ -84,7 +84,7 @@ function setData() {
                     "</p>" +
                     "</div>" +
                     "<p class='user_info'>" +
-                    "<span class='id'>acs1***</span> <span class='date'>" + prod.rev_date.substring(0, 10)+ "</span>" +
+                    "<span class='id'>acs1***</span> <span class='date'>" + prod.rev_date.substring(0, 10) + "</span>" +
                     "<button class='btn_notify' type='button' onclick=''>" +
                     "<span>신고하기</span>" +
                     "</button>" +
@@ -108,7 +108,7 @@ function setData() {
         $('#pagination').twbsPagination({
             totalPages: total / 4,
             visiblePages: 10,
-            startPage : 1,
+            startPage: 1,
             next: 'Next',
             prev: 'Prev',
             onPageClick: function (event, page) {
@@ -235,11 +235,11 @@ function setData() {
                 $('#pagination2').twbsPagination({
                     totalPages: keyPhraseArray.length / 4,
                     visiblePages: 10,
-                    startPage : 1,
+                    startPage: 1,
                     next: 'Next',
                     prev: 'Prev',
                     onPageClick: function (event, page) {
-                        //fetch content and render here                
+                        //fetch content and render here    
                         $('#allReview').html(keyPhraseArray.slice(page * 4 - 4, page * 4));
                     }
                 });
@@ -286,18 +286,18 @@ function setData() {
                             "</button>" +
                             "</div>" +
                             "</li>";
-                            allReviewArray.push($rv);
-                            let total = allReviewArray.length;
-                            $('#pagination').twbsPagination({
-                                totalPages: total / 4,
-                                visiblePages: 10,
-                                next: 'Next',
-                                prev: 'Prev',
-                                onPageClick: function (event, page) {
-                                    //fetch content and render here                
-                                    $('#allReview').html(allReviewArray.slice(page * 4 - 4, page * 4));
-                                }
-                            });
+                        allReviewArray.push($rv);
+                        let total = allReviewArray.length;
+                        $('#pagination').twbsPagination({
+                            totalPages: total / 4,
+                            visiblePages: 10,
+                            next: 'Next',
+                            prev: 'Prev',
+                            onPageClick: function (event, page) {
+                                //fetch content and render here                
+                                $('#allReview').html(allReviewArray.slice(page * 4 - 4, page * 4));
+                            }
+                        });
                     });
                 });
             }
@@ -312,7 +312,7 @@ function date_descending(a, b) {
     return dateA < dateB ? 1 : -1;
 }
 
-function reloadDivArea(){
+function reloadDivArea() {
     $('.mb100').load(location.href + " .mb100");
 }
 
