@@ -1512,69 +1512,63 @@ background: transparent url(../img/icon_btn_del.svg) no-repeat 0 0;background-si
     margin-top: 3px;
 }
 /* paging */
-.paging {
+#pagination, #pagination2 {
     margin-top: 30px;
     text-align: center;
-    font-size: 0;
+    font-size: 14px;
 }
 
-.paging [class^=btn-] {
-    width: 30px;
-    height: 30px;
-    border-radius: 0;
-    background: url('/../img/paging.png') no-repeat
-}
-
-.paging .btn-last {
-    background-position-x: -50px;
-}
-
-.paging .btn-prev {
-    margin-left: 8px;
-    background-position-x: -100px;
-}
-
-.paging .btn-next {
-    margin-right: 8px;
-    background-position-x: -150px;
-}
-
-.paging [class^=btn-] span {
-    display: block;
-    text-indent: -999999px;
-}
-
-.paging [class^=btn-]:hover, .paging [class^=btn-]:focus {
-    background-position-y: -50px;
-}
-
-.paging ul {
-    display: inline-block;
-    margin: 0 20px 0 15px;
-    vertical-align: top;
-}
-
-.paging li {
+.pagination li.page-item {
     display: inline-block;
     width: 30px;
     height: 30px;
     margin-left: 5px;
     line-height: 30px;
-    text-align: center;
+    text-align: center;   
+    color:#333;
 }
-
-.paging li a {
-    display: block;
+.pagination li.next {
+    width: 30px;
     height: 30px;
-    font-size: 15px;
+    border-radius: 0;
+    background: url('/../img/paging.png') no-repeat;
+    margin-right: 8px;
+    background-position-x: -150px;
+    color:transparent;
 }
-
-.paging li span {
+.pagination li.prev {
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
+    background: url('/../img/paging.png') no-repeat;
+    margin-left: 8px;
+    background-position-x: -100px;
+    color:transparent;    
+}
+.pagination li.last {
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
+    background: url('/../img/paging.png') no-repeat;
+    background-position-x: -50px;
+    color:transparent;
+}
+.pagination li.first {
+    width: 30px;
+    height: 30px;
+    border-radius: 0;
+    background: url('/../img/paging.png') no-repeat;
+    color:transparent;
+}
+.pagination li.active {
     position: relative;
-    display: block;
+    display: inline-block;
     font-size: 15px;
     background: #2a715a;
     color: #fff;
+}
+.pagination li.disabled {
+    opacity:0.5;
 }
 .modal{
     position: fixed;
@@ -1672,11 +1666,11 @@ background: transparent url(../img/icon_btn_del.svg) no-repeat 0 0;background-si
   h1{
     margin-bottom: 1.25em;
   }
-  #pagination{
+  #pagination-demo{
     display: inline-block;
     margin-bottom: 1.75em;
   }
-  #pagination li{
+  #pagination-demo li{
     display: inline-block;
   }
   
@@ -1686,9 +1680,4 @@ background: transparent url(../img/icon_btn_del.svg) no-repeat 0 0;background-si
     padding: 10px;
     width: 100%;
     max-width: 660px;
-  }
-
-.pagination .page-item:active{
-    background:#2a715a;
-    color: white;
   }
