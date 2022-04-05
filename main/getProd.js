@@ -25,7 +25,7 @@ function getProd() {
                 "'></div> " +
                 "<div class='product-info'><p class='title'> " +
                 prodName +
-                "</p><p class='price'><strong>"+ prodPrice+"</strong></p><div class='star-rating'><span class='star'>★★★★</span>★<span class='count'>(99)</span></div></div>";
+                "</p><p class='price'><strong>" + prodPrice + "</strong></p><div class='star-rating'><span class='star'>★★★★</span>★<span class='count'>(99)</span></div></div>";
 
             "</></li > ";
             $("#product-review").append($div);
