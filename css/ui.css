@@ -285,6 +285,14 @@
     font-weight: 700;
     cursor: pointer;
 }
+.ai .tabwrap ul li button span {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+.ai .tabwrap ul li.active button span, .ai .tabwrap ul li:hover button span {
+    color: #0C8050;
+}
 
 .ai .tabwrap ul li:last-child {
     border-right: 1px solid #0C8050;
