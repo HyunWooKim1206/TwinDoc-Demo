@@ -30,6 +30,14 @@
     position: relative;
 }
 
+.slidewrap .arrowwrap2,
+.modal_content .arrowwrap2 {
+    width: 30px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
 .slidewrap .arrowwrap .arrow-prev,
 .modal_content .arrowwrap .arrow-prev {
     width: 30px;
@@ -40,8 +48,8 @@
     float: left;
 }
 
-.slidewrap .arrowwrap .arrow-next,
-.modal_content .arrowwrap .arrow-next {
+.slidewrap .arrowwrap2 .arrow-next,
+.modal_content .arrowwrap2 .arrow-next {
     width: 30px;
     height: 30px;
     display: flex;

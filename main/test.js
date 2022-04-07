@@ -148,8 +148,8 @@ function setData() {
             } else {
                 $('.review_tag').removeClass('active');
                 $(this).addClass('active');
-            }      
-            if (btnID != "btnReviewAll") {   
+            }
+            if (btnID != "btnReviewAll") {
                 //KeyPhrase에 해당하는 리뷰
                 $.each(content, function (keyPhrase, review) {
                     $.each(review[1].sort(date_descending), function (i, prod) {
@@ -199,7 +199,7 @@ function setData() {
                                 "</li>";
                             keyPhraseArray.push($rv);
                         }
-                        $('#allReview').html(keyPhraseArray.slice(0,4)); 
+                        $('#allReview').html(keyPhraseArray.slice(0, 4));
                     });
                     //유사상품 이미지 & 명
                     let similarProdName = [];
@@ -211,6 +211,7 @@ function setData() {
                     //모달 form에 전달할 유사상품 정보
                     if (btnID == keyPhrase) {
                         $('#simProd *').remove();
+                        let simProdLen = [];
                         for (let i = 0; i < similarProdImg.length; i++) {
                             let $btnId =
                                 "<li>" +
@@ -225,15 +226,22 @@ function setData() {
                                 "'>" +
                                 "</li>";
                             $("#simProd").append($btnId);
+                            simProdLen.push($btnId);
+                        }
+                        if (simProdLen.length > 4) {
+                            let $nextBtn = "<button type = 'button' class = 'arrow-next' onclick='nextBtn()'></button>";
+                            let $prevBtn = "<button type = 'button' class = 'arrow-prev' onclick='prevBtn()'></button>";
+                            $('.arrowwrap').html($prevBtn);
+                            $('.arrowwrap2').html($nextBtn);
                         }
                     }
-                });          
+                });
                 $('.pagination').twbsPagination('destroy');
                 $('#pagination2').html(`<ul class="pagination"></ul>`);
                 $('.pagination').twbsPagination({
                     totalPages: keyPhraseArray.length / 4,
                     visiblePages: 10,
-                    startPage : 1,
+                    startPage: 1,
                     next: 'Next',
                     prev: 'Prev',
                     onPageClick: function (event, page) {
@@ -283,7 +291,7 @@ function setData() {
                             "</li>";
                         allReviewArray.push($rv);
                     });
-                    $('#allReview').html(allReviewArray.slice(0,4)); 
+                    $('#allReview').html(allReviewArray.slice(0, 4));
                 });
                 $('#paginaiton2').remove();
                 $('.pagination').twbsPagination('destroy');
@@ -310,9 +318,11 @@ function date_descending(a, b) {
     return dateA < dateB ? 1 : -1;
 }
 
-function reloadDivArea() {
-    $('.mb100').load(location.href + " .mb100");
-}
+function nextBtn() {
+    $('.arrow-next').click(function () {
+        console.log("next");
+    })
+};
 
 $(function () {
     setData();
