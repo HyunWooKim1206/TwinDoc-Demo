@@ -3514,6 +3514,11 @@
     text-align: center;
     font-size: 14px;
 }
+#pagination3{
+    margin-top: 30px;
+    text-align: center;
+    font-size: 14px;
+}
 
 .pagination li.page-item {
     display: inline-block;

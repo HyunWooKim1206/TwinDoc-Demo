@@ -148,8 +148,8 @@ function setData() {
             } else {
                 $('.review_tag').removeClass('active');
                 $(this).addClass('active');
-            }
-            if (btnID != "btnReviewAll") {
+            }      
+            if (btnID != "btnReviewAll") {   
                 //KeyPhrase에 해당하는 리뷰
                 $.each(content, function (keyPhrase, review) {
                     $.each(review[1].sort(date_descending), function (i, prod) {
@@ -168,11 +168,6 @@ function setData() {
                                 "</strong></span>" +
                                 comment.substring(idx[1]);
                             let $rv =
-                                //   $(
-                                //   `<div class = '${btnID}'><div id='date'>${rvDate
-                                //     .substring(0, 10)
-                                //     .replace(/-/g, "")}</div>${highlight}</div>'`
-                                // );
                                 "<li class='default_item ellips'>" +
                                 "<div class='review_user_info'>" +
                                 "<span class='thumb'>" +
@@ -204,6 +199,7 @@ function setData() {
                                 "</li>";
                             keyPhraseArray.push($rv);
                         }
+                        $('#allReview').html(keyPhraseArray.slice(0,4)); 
                     });
                     //유사상품 이미지 & 명
                     let similarProdName = [];
@@ -231,11 +227,13 @@ function setData() {
                             $("#simProd").append($btnId);
                         }
                     }
-                });
-                $('#pagination2').twbsPagination({
+                });          
+                $('.pagination').twbsPagination('destroy');
+                $('#pagination2').html(`<ul class="pagination"></ul>`);
+                $('.pagination').twbsPagination({
                     totalPages: keyPhraseArray.length / 4,
                     visiblePages: 10,
-                    startPage: 1,
+                    startPage : 1,
                     next: 'Next',
                     prev: 'Prev',
                     onPageClick: function (event, page) {
@@ -254,9 +252,6 @@ function setData() {
                 $.each(content, function (keyPhrase, review) {
                     $.each(review[1].sort(date_descending), function (i, prod) {
                         let $rv =
-                            //   $(
-                            //   `<div class = '${btnID}'><div id='date'>${prod.rev_date}</div>${prod.comment}</div>'`
-                            // );
                             "<li class='default_item ellips'>" +
                             "<div class='review_user_info'>" +
                             "<span class='thumb'>" +
@@ -287,18 +282,21 @@ function setData() {
                             "</div>" +
                             "</li>";
                         allReviewArray.push($rv);
-                        let total = allReviewArray.length;
-                        $('#pagination').twbsPagination({
-                            totalPages: total / 4,
-                            visiblePages: 10,
-                            next: 'Next',
-                            prev: 'Prev',
-                            onPageClick: function (event, page) {
-                                //fetch content and render here                
-                                $('#allReview').html(allReviewArray.slice(page * 4 - 4, page * 4));
-                            }
-                        });
                     });
+                    $('#allReview').html(allReviewArray.slice(0,4)); 
+                });
+                $('#paginaiton2').remove();
+                $('.pagination').twbsPagination('destroy');
+                let total = allReviewArray.length;
+                $('.pagination').twbsPagination({
+                    totalPages: total / 4,
+                    visiblePages: 10,
+                    next: 'Next',
+                    prev: 'Prev',
+                    onPageClick: function (event, page) {
+                        //fetch content and render here                
+                        $('#allReview').html(allReviewArray.slice(page * 4 - 4, page * 4));
+                    }
                 });
             }
         });
